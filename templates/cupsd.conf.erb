@@ -17,3 +17,23 @@
 
 # Should the web interface be available at the 'Listen' addresses?
 <%= '#' if @web_interface.nil? -%>WebInterface <%= (@web_interface ? 'Yes' : 'No') %>
+
+# Allow remote administration...
+<Location />
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+
+# Allow remote administration...
+<Location /admin>
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+
+# Allow remote access to the configuration files...
+<Location /admin/conf>
+  AuthType Default
+  Require user @SYSTEM
+  Order allow,deny
+  Allow @LOCAL
+</Location>
